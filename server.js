@@ -3,7 +3,26 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 
+const testRouter = require('./routes/test');
+
 require("dotenv-flow").config();
+
+app.use(bodyParser.json());
+
+app.get("/api/welcome", (req, res) => {
+    res.status(200).send({ message: "Hello" });
+});
+
+mongoose.connect(
+    process.env.DBHOST, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    }
+).catch(error => console.log("Error connecting to database: ", error));
+
+mongoose.connection.once("open", () => console.log("Connected to database"));
+
+app.use("/api/test", testRouter);
 
 const PORT = process.env.PORT || 4000;
 
