@@ -3,7 +3,7 @@ const router = require('express').Router();
 // Import the test model
 let test = require('../models/testschema');
 
-// Get all tests
+// Read all tests
 router.route('/').get((req, res) => {
     test.find()
         .then(data => res.json(data))
@@ -12,7 +12,7 @@ router.route('/').get((req, res) => {
         });
 });
 
-// Add a test
+// Create a test
 router.post('/', (req, res) => {
     const name = req.body.name;
     const age = req.body.age;
