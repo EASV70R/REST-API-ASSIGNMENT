@@ -1,10 +1,10 @@
 const router = require('express').Router();
 
 // Import the test model
-let test = require('../models/testschema');
-
+const test = require('../models/testschema');
+const { verifyToken } = require('../validation');
 // Create a test
-router.post('/', (req, res) => {
+router.post('/', verifyToken, (req, res) => {
     const name = req.body.name;
     const age = req.body.age;
 
@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
 });
 
 // Read all tests
-router.get('/', (req, res) => {
+router.get('/', verifyToken, (req, res) => {
     test.find()
         .then(data => { res.send(data); })
         .catch(err => {

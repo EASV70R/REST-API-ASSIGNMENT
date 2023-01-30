@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const testRouter = require('./routes/test');
+const userRouter = require('./routes/auth');
 
 require("dotenv-flow").config();
 
@@ -23,6 +24,8 @@ mongoose.connect(
 mongoose.connection.once("open", () => console.log("Connected to database"));
 
 app.use("/api/test", testRouter);
+app.use("/api/user", userRouter);
+
 
 const PORT = process.env.PORT || 4000;
 
