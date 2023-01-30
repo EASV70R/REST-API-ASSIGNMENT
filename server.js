@@ -3,6 +3,14 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+
+const swaggerDefinition = YAML.load('./swagger.yaml');
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+
+const { verifyToken } = require('./validation');
+
 const testRouter = require('./routes/test');
 const userRouter = require('./routes/auth');
 
@@ -23,7 +31,7 @@ mongoose.connect(
 
 mongoose.connection.once("open", () => console.log("Connected to database"));
 
-app.use("/api/test", testRouter);
+app.use("/api/test", verifyToken, testRouter);
 app.use("/api/user", userRouter);
 
 
