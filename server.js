@@ -12,6 +12,7 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 const { verifyToken } = require('./validation');
 
 const testRouter = require('./routes/test');
+const catRouter = require('./routes/cat');
 const userRouter = require('./routes/auth');
 
 require("dotenv-flow").config();
@@ -32,6 +33,7 @@ mongoose.connect(
 mongoose.connection.once("open", () => console.log("Connected to database"));
 
 app.use("/api/test", verifyToken, testRouter);
+app.use("/api/cat", verifyToken, catRouter);
 app.use("/api/user", userRouter);
 
 
