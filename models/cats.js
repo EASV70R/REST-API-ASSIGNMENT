@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema;
 
+// Create a schema
 const catSchema = new schema({
     name: {
         type: String,
@@ -20,4 +21,5 @@ const catSchema = new schema({
     }
 });
 
+// Export the model
 module.exports = mongoose.model('cat', catSchema);
