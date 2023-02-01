@@ -60,7 +60,7 @@ router.post("/login", async(req, res) => {
         },
         process.env.TOKEN_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
 
-    res.header('auth-token', token).json({
+    return res.header('auth-token', token).json({
         error: null,
         data: { token }
     });
