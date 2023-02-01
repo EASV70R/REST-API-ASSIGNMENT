@@ -22,7 +22,7 @@ require("dotenv-flow").config();
 // Parse incoming requests data
 app.use(bodyParser.json());
 
-app.get("/api/", (req, res) => {
+app.get("/api", (req, res) => {
     res.status(200).send("Hello there!");
 });
 
@@ -37,9 +37,9 @@ mongoose.connect(
 mongoose.connection.once("open", () => console.log("Connected to database"));
 
 // Use the routes
+app.use("/api/user", userRouter);
 app.use("/api/test", testRouter);
 app.use("/api/cat", verifyToken, catRouter);
-app.use("/api/user", userRouter);
 
 const PORT = process.env.PORT || 4000;
 
