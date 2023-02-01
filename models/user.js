@@ -7,19 +7,19 @@ const userScheme = new schema({
         type: String,
         required: true,
         min: 6,
-        max: 255,
+        max: 50,
     },
     email: {
         type: String,
         required: true,
         min: 6,
-        max: 255,
+        max: 50,
     },
     password: {
         type: String,
         required: true,
         min: 6,
-        max: 255,
+        max: 50,
     },
     creationDate: {
         type: Date,
