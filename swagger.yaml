@@ -33,8 +33,6 @@ components:
     User:
       type: object
       properties:
-        id:
-          type: string
         username:
           type: string
         email:
@@ -116,7 +114,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/User"
-
   /user/{id}:
     get:
       tags:
@@ -141,7 +138,10 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/User"
-                  put:
+
+    put:
+      tags:
+        - "User"
       summary: Updates a specific User
       description: Updates a specific User based on it id
       security:
@@ -159,7 +159,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/User"
-
       responses:
         200:
           description: User updated succesfully
