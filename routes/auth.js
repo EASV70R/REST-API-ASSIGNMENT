@@ -34,8 +34,18 @@ router.post("/login", async(req, res) => {
     const { error } = loginValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const getUser = await user.findOne({ email: req.body.email });
-    if (!getUser) return res.status(400).json({ error: "Email is wrong" })
+    const {
+        email = undefined,
+            username = undefined,
+            password = undefined
+    } = req.body;
+
+    if ((!!email && !!username) || (!email && !username)) {
+        return res.status(400).send("Provide Email or Username to login");
+    }
+
+    const getUser = await user.findOne(email ? { email } : { username });
+    if (!getUser) return res.status(400).json({ error: "Username or Email is wrong" })
 
     const validPass = await bcrypt.compare(req.body.password, getUser.password);
     if (!validPass) return res.status(400).json({ error: "Password is wrong" })
