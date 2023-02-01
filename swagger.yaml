@@ -33,6 +33,8 @@ components:
     User:
       type: object
       properties:
+        id:
+          type: string
         username:
           type: string
         email:
@@ -41,9 +43,10 @@ components:
           type: string
 
 paths:
-
   /user/register:
     post:
+      tags:
+        - "User"
       summary: Register a new User
       description: Register a new User in the database
       requestBody:
@@ -68,6 +71,8 @@ paths:
 
   /user/login:
     post:
+      tags:
+        - "User"
       summary: Login a User
       description: Login a User in order to get JWT token (auth-token)
       requestBody:
@@ -94,10 +99,102 @@ paths:
                     type: string
                   data:
                     type: string
+  /user:
+    get:
+      tags:
+        - "User"
+      summary: Retrieves a list of Users
+      description: Retrieves a list of Users as JSON objects.
+      security:
+        - ApiKeyAuth: []  
+      responses:
+        200:
+          description: A list of Users JSON objects in an array.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
 
+  /user/{id}:
+    get:
+      tags:
+        - "User"
+      summary: Specific User
+      description: Retrieves a specific User based on it id.
+      security:
+        - ApiKeyAuth: []   
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+      responses:
+        200:
+          description: A User in the format of a JSON object.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+                  put:
+      summary: Updates a specific User
+      description: Updates a specific User based on it id
+      security:
+        - ApiKeyAuth: []            
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+
+      responses:
+        200:
+          description: User updated succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+    delete:
+      tags:
+        - "User"
+      summary: Deletes a specific User
+      description: Deletes a specific User based on it id
+      security:
+        - ApiKeyAuth: []            
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string      
+
+      responses:
+        200:
+          description: User deleted succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
 
   /cat:
     get:
+      tags:
+        - "Cat"
       summary: Retrieves a list of Cats
       description: Retrieves a list of Cats as JSON objects.
       security:
@@ -113,6 +210,8 @@ paths:
                   $ref: "#/components/schemas/Cat"
     
     post:
+      tags:
+        - "Cat"
       summary: Create a new Cat
       description: Create a new Cat
       security:
@@ -131,9 +230,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Cat"
-  
+
   /cat/{id}:
     get:
+      tags:
+        - "Cat"
       summary: Specific Cat
       description: Retrieves a specific Cat based on it id.
       security:
@@ -156,6 +257,8 @@ paths:
                   $ref: "#/components/schemas/Cat"
    
     put:
+      tags:
+        - "Cat"
       summary: Updates a specific Cat
       description: Updates a specific Cat based on it id
       security:
@@ -183,6 +286,8 @@ paths:
                 $ref: "#/components/schemas/Cat"
 
     delete:
+      tags:
+        - "Cat"
       summary: Deletes a specific Cat
       description: Deletes a specific Cat based on it id
       security:
