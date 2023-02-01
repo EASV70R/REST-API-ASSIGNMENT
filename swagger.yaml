@@ -4,15 +4,14 @@ info:
   description: Assignemnt API Docs
   version: 1.0.0
 servers:
-  - url: http://localhost:4000/api/
-    description: Localhost development server 
+  - url: 'http://localhost:4000/api/'
+    description: Localhost development server
 components:
   securitySchemes:
-    ApiKeyAuth:        # arbitrary name for the security scheme
+    ApiKeyAuth:
       type: apiKey
-      in: header       # can be "header", "query" or "cookie"
+      in: header
       name: auth-token
-
   schemas:
     Cat:
       type: object
@@ -29,7 +28,6 @@ components:
           type: string
         color:
           type: string
-    
     User:
       type: object
       properties:
@@ -39,12 +37,11 @@ components:
           type: string
         password:
           type: string
-
 paths:
   /user/register:
     post:
       tags:
-        - "User"
+        - User
       summary: Register a new User
       description: Register a new User in the database
       requestBody:
@@ -52,10 +49,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
-
+              $ref: '#/components/schemas/User'
       responses:
-        200:
+        '200':
           description: User created succesfully
           content:
             application/json:
@@ -66,11 +62,10 @@ paths:
                     type: string
                   _id:
                     type: string
-
   /user/login:
     post:
       tags:
-        - "User"
+        - User
       summary: Login a User
       description: Login a User in order to get JWT token (auth-token)
       requestBody:
@@ -84,9 +79,8 @@ paths:
                   type: string
                 password:
                   type: string
-      
       responses:
-        200:
+        '200':
           description: User logged in succesfully
           content:
             application/json:
@@ -100,28 +94,28 @@ paths:
   /user:
     get:
       tags:
-        - "User"
+        - User
       summary: Retrieves a list of Users
       description: Retrieves a list of Users as JSON objects.
       security:
-        - ApiKeyAuth: []  
+        - ApiKeyAuth: []
       responses:
-        200:
+        '200':
           description: A list of Users JSON objects in an array.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/User"
-  /user/{id}:
+                  $ref: '#/components/schemas/User'
+  '/user/{id}':
     get:
       tags:
-        - "User"
+        - User
       summary: Specific User
       description: Retrieves a specific User based on it id.
       security:
-        - ApiKeyAuth: []   
+        - ApiKeyAuth: []
       parameters:
         - in: path
           name: id
@@ -130,22 +124,21 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           description: A User in the format of a JSON object.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/User"
-
+                  $ref: '#/components/schemas/User'
     put:
       tags:
-        - "User"
+        - User
       summary: Updates a specific User
       description: Updates a specific User based on it id
       security:
-        - ApiKeyAuth: []            
+        - ApiKeyAuth: []
       parameters:
         - in: path
           name: id
@@ -158,86 +151,80 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: '#/components/schemas/User'
       responses:
-        200:
+        '200':
           description: User updated succesfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
-
+                $ref: '#/components/schemas/User'
     delete:
       tags:
-        - "User"
+        - User
       summary: Deletes a specific User
       description: Deletes a specific User based on it id
       security:
-        - ApiKeyAuth: []            
+        - ApiKeyAuth: []
       parameters:
         - in: path
           name: id
           required: true
           description: MongoDB id
           schema:
-            type: string      
-
+            type: string
       responses:
-        200:
+        '200':
           description: User deleted succesfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
-
+                $ref: '#/components/schemas/User'
   /cat:
     get:
       tags:
-        - "Cat"
+        - Cat
       summary: Retrieves a list of Cats
       description: Retrieves a list of Cats as JSON objects.
       security:
-        - ApiKeyAuth: []  
+        - ApiKeyAuth: []
       responses:
-        200:
+        '200':
           description: A list of Cat JSON objects in an array.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Cat"
-    
+                  $ref: '#/components/schemas/Cat'
     post:
       tags:
-        - "Cat"
+        - Cat
       summary: Create a new Cat
       description: Create a new Cat
       security:
-        - ApiKeyAuth: []      
+        - ApiKeyAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Cat"
-
+              $ref: '#/components/schemas/Cat'
       responses:
-        200:
+        '200':
           description: Cat created succesfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Cat"
-
-  /cat/{id}:
+                $ref: '#/components/schemas/Cat'
+  '/cat/{id}':
     get:
       tags:
-        - "Cat"
+        - Cat
       summary: Specific Cat
       description: Retrieves a specific Cat based on it id.
       security:
-        - ApiKeyAuth: []   
+        - ApiKeyAuth: []
       parameters:
         - in: path
           name: id
@@ -246,22 +233,21 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           description: A Cat in the format of a JSON object.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Cat"
-   
+                  $ref: '#/components/schemas/Cat'
     put:
       tags:
-        - "Cat"
+        - Cat
       summary: Updates a specific Cat
       description: Updates a specific Cat based on it id
       security:
-        - ApiKeyAuth: []            
+        - ApiKeyAuth: []
       parameters:
         - in: path
           name: id
@@ -274,35 +260,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Cat"
-
+              $ref: '#/components/schemas/Cat'
       responses:
-        200:
+        '200':
           description: Cat updated succesfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Cat"
-
+                $ref: '#/components/schemas/Cat'
     delete:
       tags:
-        - "Cat"
+        - Cat
       summary: Deletes a specific Cat
       description: Deletes a specific Cat based on it id
       security:
-        - ApiKeyAuth: []            
+        - ApiKeyAuth: []
       parameters:
         - in: path
           name: id
           required: true
           description: MongoDB id
           schema:
-            type: string      
-
+            type: string
       responses:
-        200:
+        '200':
           description: Cat deleted succesfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Cat"
+                $ref: '#/components/schemas/Cat'
