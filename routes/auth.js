@@ -44,10 +44,14 @@ router.post("/login", async(req, res) => {
         return res.status(400).send("Provide Email or Username to login");
     }
 
+    if (!password) {
+        return res.status(400).send("Password is required");
+    }
+
     const getUser = await user.findOne(email ? { email } : { username });
     if (!getUser) return res.status(400).json({ error: "Username or Email is wrong" })
 
-    const validPass = await bcrypt.compare(req.body.password, getUser.password);
+    const validPass = await bcrypt.compare(password, getUser.password);
     if (!validPass) return res.status(400).json({ error: "Password is wrong" })
 
     const token = jwt.sign({
